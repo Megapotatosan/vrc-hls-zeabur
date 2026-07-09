@@ -1,0 +1,13 @@
+.git
+.github
+.vscode
+.idea
+*.log
+*.tmp
+tmp/
+temp/
+node_modules/
+dist/
+build/
+coverage/
+docs/superpowers/
