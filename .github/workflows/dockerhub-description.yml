@@ -1,0 +1,32 @@
+name: Update Docker Hub Description
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - .github/workflows/dockerhub-description.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dockerhub-description:
+    name: Sync README to Docker Hub
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Update Docker Hub description
+        uses: peter-evans/dockerhub-description@v5
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_DESCRIPTION_TOKEN || secrets.DOCKERHUB_TOKEN }}
+          repository: megasan/vrc-hls-zeabur
+          short-description: RTMP-to-HLS nginx service for VRChat streaming
+          readme-filepath: ./README.md
+          enable-url-completion: true
